@@ -1,8 +1,8 @@
 import express from 'express';
 import path from 'path';
 import proxy from 'proxy-express';
-
 import bodyParser from 'body-parser';
+import { forEach } from 'lodash';
 
 import responseHelpers from './response';
 
@@ -26,6 +26,12 @@ export default function (options, imports) {
   } else {
     app.use('/public', express.static(publicPath));
   }
+
+  forEach(options.routes || {}, (router, route) => {
+    const routerModule = imports[router];
+
+    app.use(route, routerModule);
+  });
 
   const indexFile = path.join(assetsPath, 'index.html');
   app.get('*', (req, res) => res.sendFile(indexFile));
