@@ -15,6 +15,11 @@
       "path": "./services/logger"
     },
 
+    "model": {
+      "path": "./services/model",
+      "dependencies": ["mongoose"]
+    },
+
     "mongoose": {
       "path": "./services/mongoose",
       "options": {
