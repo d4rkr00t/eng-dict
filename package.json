@@ -4,11 +4,15 @@
   "description": "Search for phrase meaning and translation",
   "main": "start.js",
   "scripts": {
+    "eslint": "eslint .",
     "start": "nodemon start.js -e js,json,html --ignore node_modules/ --ignore public/ --ignore client/",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Stanislav Sysoev <d4rkr00t@gmail.com> (http://sysoev.org)",
   "license": "ISC",
+  "pre-commit": [
+    "eslint"
+  ],
   "dependencies": {
     "babel": "^5.8.23",
     "body-parser": "^1.14.0",

@@ -33,9 +33,9 @@ export default class Application {
 
   require(modulePath) {
 
-    const realPath = modulePath[0] === '/' ?
-      modulePath :
-      path.join(this.basePath, modulePath);
+    const realPath = modulePath[0] === '/'
+      ? modulePath
+      : path.join(this.basePath, modulePath);
 
     return require(realPath);
 
@@ -54,7 +54,7 @@ export default class Application {
   /**
    * Run an application.
    *
-   * @return {Promise}
+   * @returns {Promise}
    */
   execute() {
     if (this.executed) {
@@ -77,7 +77,7 @@ export default class Application {
   /**
    * Graceful shutdown an application.
    *
-   * @return {Promise}
+   * @returns {Promise}
    */
   shutdown() {
     if (!this.started) {
@@ -141,8 +141,8 @@ export default class Application {
     if (startedInThisRound === 0) {
       if (Object.keys(this.starting).length === 0) {
         this.promise.reject(new Error(
-          'Circular dependency detected while resolving ' +
-            this.awaiting.join(', ')
+          'Circular dependency detected while resolving '
+          + this.awaiting.join(', ')
         ));
       }
     }
@@ -157,7 +157,7 @@ export default class Application {
    * @param {String} name - service name
    * @param {Object} service - service object
    *
-   * @return {Boolean}
+   * @returns {Boolean}
    */
   checkDependencies(name, service) {
     if (!service.dependencies || service.dependencies.length === 0) {
@@ -213,9 +213,9 @@ export default class Application {
       return [];
     }
 
-    return Array.isArray(service.dependencies) ?
-      service.dependencies :
-      this.constructor.values(service.dependencies);
+    return Array.isArray(service.dependencies)
+      ? service.dependencies
+      : this.constructor.values(service.dependencies);
   }
 
   obtainModule(name, service) {
@@ -243,13 +243,13 @@ export default class Application {
     }
 
     if (Array.isArray(service.dependencies)) {
-      service.dependencies.forEach(name => {
-        imports[name] = this.resolved[name];
+      service.dependencies.forEach(depsName => {
+        imports[depsName] = this.resolved[depsName];
       });
     } else {
       Object.keys(service.dependencies).forEach(alias => {
-        const name = service.dependencies[alias];
-        imports[alias] = this.resolved[name];
+        const depsName = service.dependencies[alias];
+        imports[alias] = this.resolved[depsName];
       });
     }
 
@@ -287,8 +287,7 @@ export default class Application {
           clearTimeout(startupTimer);
 
           this.resolved[name] = result.service;
-          this.teardown[name] = result.shutdown ||
-            function () { return Promise.resolve(); };
+          this.teardown[name] = result.shutdown || () => Promise.resolve();
           this.nextRound();
         });
     } catch (error) {
