@@ -1,4 +1,26 @@
 {
   "services": {
+    "http": {
+      "path": "./services/http",
+      "options": {
+        "port": "8080",
+        "routes": {}
+      },
+      "dependencies": [
+        "logger"
+      ]
+    },
+
+    "logger": {
+      "path": "./services/logger"
+    },
+
+    "mongoose": {
+      "path": "./services/mongoose",
+      "options": {
+        "host": "mongodb://localhost/eng-dict"
+      },
+      "dependencies": ["logger"]
+    }
   }
 }
