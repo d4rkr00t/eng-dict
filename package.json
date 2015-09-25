@@ -6,7 +6,8 @@
   "scripts": {
     "eslint": "eslint .",
     "start": "nodemon start.js -e js,json,html --ignore node_modules/ --ignore public/ --ignore client/",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "subtitles": "babel-node ./cli/subtitles"
   },
   "author": "Stanislav Sysoev <d4rkr00t@gmail.com> (http://sysoev.org)",
   "license": "ISC",
